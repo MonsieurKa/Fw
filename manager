@@ -1,0 +1,141 @@
+package me.pw.com;
+
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Manager extends JavaPlugin{
+
+	
+	
+	
+	
+	
+static main plugin;
+	
+	public Manager(main instance) {
+		plugin = instance;
+		}
+	
+	//===================HashMaps===================\\
+	public static HashMap<String, Integer> playerinarena = new HashMap<>();
+	//===================Config files===================\\
+	 public static FileConfiguration file;
+	  static File cfile;
+	
+	
+	
+	public static void createArena(Player p){
+		
+		if(!file.contains("Arenas")){
+			file.set("Arenas", 0);
+			 saveArenas();
+		}else{
+			int id = file.getInt("Arenas");
+			file.set("Arenas", id++);
+            file.set("Arena."+id+".ID", id);
+            file.set("Arena."+id+".Location.World", "''");
+            file.set("Arena."+id+".Location.x", 0);
+            file.set("Arena."+id+".Location.y", 0);
+            file.set("Arena."+id+".Location.z", 0);
+            file.set("Arena."+id+".Location.Pitch", 0);
+            file.set("Arena."+id+".Location.Yaw", 0);
+            saveArenas();
+		}
+		
+		
+	}
+	
+	public static void joinArena(Player p , int id){
+		
+		if(file.contains("Arena."+id+".ID")){
+			playerinarena.put(p.getName(), id);
+			teleportToArena(p, id);
+			
+			p.sendMessage("§6[Pw]:§aYou join arena §6"+ id+ "§7(§b" + playerinarena.get()+"/20§7)");
+		}
+		
+	}
+	
+	
+	public static void leaveArena(Player p , int id){
+		playerinarena.remove(p.getName());
+	}
+	
+	
+	public static void teleportToArena(Player p, int id ){
+		
+		 Double x ;
+		 Double y;
+		 Double z;
+		 Float pitch;
+		 Float yaw;
+		 
+		x = file.getDouble("Arena." + id + ".Location.x");
+		y = file.getDouble("Arena." + id + ".Location.y");
+		z = file.getDouble("Arena." + id + ".Location.z");
+		pitch = (Float) file.get("Arena."+id+".Location.Pitch");
+		yaw = (Float) file.get("Arena."+id+".Location.Yaw");
+		World world = Bukkit.getWorld(file.getString("Arena."+id+".Location.World"));
+		
+		Location loc = new Location(world, x, y, z, pitch, yaw);
+		p.teleport(loc);
+	}
+	
+	
+	//---[!!!]--- add onEnable this \/ \/ \/ \/ \/ \/
+	public static void newConfig(Plugin p){
+		
+		  if (!p.getDataFolder().exists()) {
+		      p.getDataFolder().mkdir();
+		    }
+		    cfile = new File(p.getDataFolder(), "Arenas.yml");
+		    
+		   
+		    if (!cfile.exists()) {
+		      try
+		      {
+		        cfile.createNewFile();
+		      }
+		      catch (IOException e)
+		      {
+		        Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create signs.yml!");
+		      }
+		    }
+		  
+		    file = YamlConfiguration.loadConfiguration(cfile);
+		    
+	}
+	
+	  public FileConfiguration getArenas()
+	  {
+	    return file;
+	  }
+	  
+	  public static void saveArenas()
+	  {
+	    try
+	    {
+	      file.save(cfile);
+	    }
+	    catch (IOException e)
+	    {
+	      Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save signs.yml!");
+	    }
+	  }
+	
+	
+	
+}
