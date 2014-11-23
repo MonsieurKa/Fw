@@ -1,0 +1,6 @@
+ LineEffect eff = new LineEffect    (main.effectManager);
+				        eff.setLocation(p.getLocation().add(0, 1.8, 0));
+				        eff.iterations = 20;
+						  eff.setTarget(b.getLocation().add(0.5, 1, 0.5));
+				        eff.particle = ParticleEffect.SPELL;
+				        eff.start();
