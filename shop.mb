@@ -1,0 +1,130 @@
+package me.spleef.com.Shop;
+
+import java.util.ArrayList;
+
+import me.spleef.com.Manager;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class shop extends JavaPlugin{
+
+	
+	public static ItemStack item;
+	  public static Inventory open(Player p)
+	  {
+	    Inventory inv = Bukkit.createInventory(null, 18, "§0§lSpades");
+	    //Wood Spade
+	    ArrayList<String> lore2 = new ArrayList<String>();
+	     item = new ItemStack(Material.WOOD_SPADE, 1);
+	    ItemMeta itemmeta = item.getItemMeta();
+	    lore2.add("§aAbility: §e200 §6§lBlocks");
+	    lore2.add("§e========oOo========");
+	    if(Manager.stats.getString("Stats.Spade."+p.getName()).equals("wood")){
+	    	 lore2.add("§a§l✔");
+	    }
+	    itemmeta.setDisplayName("§6§lNormal-Spade");
+	    itemmeta.setLore(lore2);
+	    item.setItemMeta(itemmeta);
+	    inv.setItem(0, item);
+	    
+	    
+	    
+	    
+	    //============================================================\\
+	    //Stone Spade
+	    ArrayList<String> lore3 = new ArrayList<String>();
+	    ItemStack item2 = new ItemStack(Material.STONE_SPADE, 1);
+	    ItemMeta itemmeta2 = item2.getItemMeta();
+	    lore3.add("§aAbility: §e180 §6§lBlocks");
+	    lore3.add("§e========oOo========");
+	    if(Manager.stats.getString("Stats.Spade."+p.getName()).equals("stone")){
+	    	 lore3.add("§a§l✔");
+	    }
+	    itemmeta2.setDisplayName("§7§lStone-Spade");
+	    itemmeta2.setLore(lore3);
+	    item2.setItemMeta(itemmeta2);
+	    
+	    inv.setItem(1, item2);
+	    
+	    //============================================================\\
+	    //Iron Spade
+	    ArrayList<String> lore4 = new ArrayList<String>();
+	    ItemStack item3 = new ItemStack(Material.IRON_SPADE, 1);
+	    ItemMeta itemmeta3 = item3.getItemMeta();
+	    lore4.add("§c§l>> §aAbility: §e160 §6§lBlocks");
+	    lore4.add("§c§l>> §aEffect: §6Crit");
+	    lore4.add("§e========oOo========");
+	    if(Manager.stats.getString("Stats.Spade."+p.getName()).equals("iron")){
+	    	 lore4.add("§a§l✔");
+	    }
+	    itemmeta3.setDisplayName("§f§lIron-Spade");
+	    itemmeta3.setLore(lore4);
+	    item3.setItemMeta(itemmeta3);
+	    
+	    inv.setItem(2, item3);
+	    
+	    
+	    //============================================================\\
+	    //Gold Spade
+	    ArrayList<String> lore5 = new ArrayList<String>();
+	    ItemStack item4 = new ItemStack(Material.GOLD_SPADE, 1);
+	    ItemMeta itemmeta4 = item4.getItemMeta();
+	    lore5.add("§c§l>> §aAbility: §e120 §6§lBlocks");
+	    lore5.add("§c§l>> §aEffect: §6Flame");
+	    lore5.add("§e========oOo========");
+	    if(Manager.stats.getString("Stats.Spade."+p.getName()).equals("gold")){
+	    	 lore5.add("§a§l✔");
+	    }
+	    itemmeta4.setDisplayName("§e§lGold-Spade");
+	    itemmeta4.setLore(lore5);
+	    item4.setItemMeta(itemmeta4);
+	    
+	    inv.setItem(3, item4);
+	    
+	  //============================================================\\
+	    //Diamond Spade
+	    ArrayList<String> lore6 = new ArrayList<String>();
+	    ItemStack item6 = new ItemStack(Material.DIAMOND_SPADE, 1);
+	    ItemMeta itemmeta6 = item6.getItemMeta();
+	    lore6.add("§c§l>> §aAbility: §e100 §6§lBlocks");
+	    lore6.add("§c§l>> §aEffect: §6Spark");
+	    lore6.add("§e========oOo========");
+	    if(Manager.stats.getString("Stats.Spade."+p.getName()).equals("diamond")){
+	    	 lore6.add("§a§l✔");
+	    }
+	    itemmeta6.setDisplayName("§b§lDiamond-Spade");
+	    itemmeta6.setLore(lore6);
+	    item6.setItemMeta(itemmeta6);
+	    
+	    inv.setItem(4, item6);
+	    
+	    //===================================================================\\
+	    
+	    ArrayList<String> lore = new ArrayList<String>();
+	    ItemStack item1 = new ItemStack(Material.EMERALD, 1);
+	    ItemMeta itemmeta1 = item1.getItemMeta();
+	    itemmeta1.setDisplayName("          §a§lWins: §b" + Manager.stats.getInt("Stats."+p.getName()));
+	    lore.add("§e========oOo========");
+	    itemmeta1.setLore(lore);
+	    item1.setItemMeta(itemmeta1);
+	    
+	    inv.setItem(17, item1);
+	    
+
+
+	    return inv;
+	  }
+	
+
+	
+	
+	
+	
+}
